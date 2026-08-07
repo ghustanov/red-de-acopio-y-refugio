@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#003C67">
+<title>Ofrecer mi ayuda · Red de Acopio y Refugio</title>
+<link rel="icon" href="/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+<style>
+:root{--navy:#003C67;--teal:#1E9C94;--linea:#dfe6ee;--txt:#0f1f33}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Poppins",-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#eef2f7;color:var(--txt)}
+.top{position:relative;overflow:hidden;color:#fff;background:linear-gradient(118deg,#022B4D,#003C67 34%,#005B67 66%,#15857E);padding:calc(14px + env(safe-area-inset-top)) 18px 24px}
+.top::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px 240px at 90% -12%,rgba(255,255,255,.13),transparent 60%)}
+.top-in{max-width:560px;margin:0 auto;position:relative}
+.top-marca{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.top-marca img{width:30px;height:30px;background:#fff;border-radius:8px;padding:3px;box-shadow:0 2px 8px rgba(2,20,38,.25)}
+.top-marca b{font-size:13px;font-weight:600;opacity:.94}
+.top-marca .volver{margin-left:auto;font-size:12.5px;color:rgba(255,255,255,.88);font-weight:600;white-space:nowrap}
+.top h1{margin:16px 0 0;font-size:clamp(23px,5vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.18;display:flex;align-items:center;gap:10px}
+.top h1 svg{flex:0 0 auto}
+.top p{margin:9px 0 0;font-size:14px;color:rgba(255,255,255,.9);line-height:1.55}
+.wrap{max-width:560px;margin:0 auto;padding:16px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(11,42,74,.08)}
+.pie-sub{text-align:center;font-size:12px;color:#8a99ad;margin:22px 0 26px;line-height:1.6}
+.pie-sub a{color:#005B67;font-weight:600;text-decoration:none}
+.card{background:#fff;border:1px solid var(--linea);border-radius:16px;padding:18px;margin:14px 0}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+label .op{color:#8a99ad;font-weight:500}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px;font-family:inherit;background:#fff}
+textarea{min-height:96px;resize:vertical}
+.hp{position:absolute;left:-9999px;top:-9999px}
+.btn{display:block;width:100%;margin-top:18px;padding:14px;border:0;border-radius:12px;background:var(--teal);color:#fff;font-weight:800;font-size:16px;cursor:pointer}
+.btn:disabled{opacity:.6}
+.msg{padding:14px;border-radius:12px;margin:10px 0;font-size:14.5px;line-height:1.45;display:none}
+.ok{background:#e7f6f4;border:1px solid var(--teal);color:#0b5f59}
+.err{background:#fdeaea;border:1px solid #e57373;color:#9b2226}
+.alt{text-align:center;font-size:13.5px;color:#5b6b80;margin-top:16px;line-height:1.5}
+.alt a{color:var(--teal);font-weight:700;text-decoration:none}
+.nota{font-size:12.5px;color:#8a99ad;margin-top:10px;line-height:1.45}
+</style></head><body>
+<div class="top"><div class="top-in">
+  <a class="top-marca" href="/"><img src="/logo.svg?v=ofc" alt=""><b>Red de Acopio y Refugio</b><span class="volver">← Volver al inicio</span></a>
+  <h1><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.4-4.6-9.9-9.1C.7 8.9 2.6 5 6.3 5c2.1 0 3.6 1.2 4.7 2.8h2C14.1 6.2 15.6 5 17.7 5c3.7 0 5.6 3.9 4.2 6.9C19.4 16.4 12 21 12 21z"/></svg>Ofrecer mi ayuda</h1>
+  <p>Si puedes ayudar <b>gratis</b> — comida, transporte, salud, inspección de estructuras, ayuda en línea, un oficio — publícate aquí y la gente te encontrará. Toma menos de 1 minuto. Aparece de inmediato; nuestro equipo puede retirar cualquier publicación indebida.</p>
+</div></div>
+<div class="wrap">
+  <div class="card">
+    <div id="ok" class="msg ok"></div>
+    <div id="err" class="msg err"></div>
+    <form id="f" autocomplete="on">
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label>Tu nombre</label>
+      <input id="nombre" maxlength="80" placeholder="Nombre o del grupo/negocio" required>
+      <label>¿Qué tipo de ayuda ofreces?</label>
+      <select id="categoria" required>
+        <option value="">Elige una categoría…</option>
+        <option value="comida">🍲 Comida</option>
+        <option value="agua">💧 Agua</option>
+        <option value="salud">🩹 Salud / primeros auxilios</option>
+        <option value="transporte">🚐 Transporte</option>
+        <option value="carga">🔌 Carga de teléfonos</option>
+        <option value="hospedaje">🛏️ Hospedaje temporal</option>
+        <option value="herramientas">🔦 Herramientas / linternas</option>
+        <option value="remoto">💻 Remoto / En Línea</option>
+        <option value="estructural">🏗️ Estructural / Inspección</option>
+        <option value="oficios">🛠️ Oficios</option>
+        <option value="otro">📦 Otra ayuda</option>
+      </select>
+      <label>¿Qué ofreces exactamente?</label>
+      <textarea id="descripcion" maxlength="600" placeholder="Ej.: Soy ingeniero civil, hago inspección de grietas y columnas sin costo. O: consulta médica online gratis." required></textarea>
+      <label>Zona donde ayudas</label>
+      <input id="zona" maxlength="120" placeholder="Ej.: Caracas, o toda Venezuela si es en línea" required>
+      <label>WhatsApp de contacto</label>
+      <input id="contacto" maxlength="60" placeholder="Ej.: 0412 1234567" required>
+      <div style="background:#eef6f5;border-radius:8px;padding:9px 11px;font-size:12.5px;color:#0e5a55;line-height:1.45;margin-top:6px">🔒 Tu número <b>NO se publica</b> en la web. Cuando alguien pida contactarte te llegará una solicitud (WhatsApp o Telegram) y tú decides si compartes tu número.</div>
+      <label>Disponibilidad <span class="op">(opcional)</span></label>
+      <input id="horario" maxlength="80" placeholder="Ej.: 8am-6pm, o cualquier hora">
+      <p class="nota">Al publicar aceptas el <a href="/aviso-legal.html" target="_blank" rel="noopener">Aviso legal</a>: la Red solo conecta personas voluntariamente; no verifica ni supervisa la ayuda que acuerdes dar.</p>
+      <button class="btn" id="enviar" type="submit">Publicar mi ayuda</button>
+      <p class="nota">🔒 Tu WhatsApp se muestra para que te contacten. No publicamos cédula ni datos sensibles. Es una iniciativa ciudadana e independiente.</p>
+    </form>
+  </div>
+  <p class="alt">¿Prefieres hacerlo por WhatsApp? <a href="https://wa.me/message/6TEVCZCHJ2TPN1" target="_blank" rel="noopener">💬 Escríbenos →</a> · ¿O por Telegram? <a href="https://t.me/angelesapoyove_bot" target="_blank" rel="noopener">Abre nuestro bot →</a></p>
+  <p class="pie-sub">Red de Acopio y Refugio · Iniciativa ciudadana e independiente · <a href="/aviso-legal.html">Aviso legal</a></p>
+</div>
+<script>
+var f=document.getElementById('f'),ok=document.getElementById('ok'),err=document.getElementById('err'),btn=document.getElementById('enviar');
+function val(id){return (document.getElementById(id).value||'').trim();}
+f.addEventListener('submit',function(ev){
+  ev.preventDefault();
+  err.style.display='none';
+  var body={
+    website:f.website.value||'',
+    nombre:val('nombre'),categoria:val('categoria'),descripcion:val('descripcion'),
+    zona:val('zona'),contacto:val('contacto'),horario:val('horario')
+  };
+  if(!body.nombre||!body.categoria||!body.descripcion||!body.zona||!body.contacto){
+    err.textContent='Por favor completa todos los campos obligatorios.';err.style.display='block';return;
+  }
+  btn.disabled=true;btn.textContent='Enviando… (puede tardar en conexiones lentas)';
+  fetch('/api/ofrecer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+    .then(function(d){
+      if(d&&d.ok){
+        f.style.display='none';err.style.display='none';
+        ok.innerHTML='✅ <b>¡Gracias!</b> Tu ayuda <b>ya está publicada</b> en la web para que la gente te encuentre. <br><br><a href="/" style="color:#0b5f59;font-weight:700">Volver al inicio</a>';
+        ok.style.display='block';window.scrollTo(0,0);
+      }else{
+        throw new Error((d&&d.error)||'No se pudo enviar');
+      }
+    })
+    .catch(function(e){
+      err.textContent='No se pudo enviar ('+(e.message||'error')+'). Tranquilo: tus datos siguen aquí en el formulario — revisa tu conexión y toca «Reintentar publicación».';
+      err.style.display='block';btn.disabled=false;btn.textContent='Reintentar publicación';
+    });
+});
+</script>
+</body></html>

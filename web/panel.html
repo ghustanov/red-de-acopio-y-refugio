@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red de Acopio y Refugio - Panel institucional</title>
+<style>
+:root{--navy:#003C67;--teal:#1E9C94;--tinta:#0f1f33;--suave:#5b6b80;--linea:#e2e8f0;--bg:#eef1f5;--verde:#15803d;--verde-bg:#f0fdf4;--rojo:#dc2626;--rojo-bg:#fef2f2;--gris:#94a3b8;--gris-bg:#f1f5f9;--naranja:#ea580c;--naranja-bg:#fff7ed}
+*{box-sizing:border-box;margin:0}
+body{font-family:Poppins,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--tinta);min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+header{background:var(--navy);color:#fff;padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:5px solid var(--teal)}
+header img{width:52px;height:52px;border-radius:10px;background:#fff}
+header .k{font-size:12px;letter-spacing:.08em;color:#9fd8d4;font-weight:600}
+header h1{font-size:22px;font-weight:600;line-height:1.25}
+header .fecha{margin-left:auto;font-size:13px;color:#9fd8d4;text-align:right;line-height:1.45}
+header .head-actions{display:flex;align-items:center;gap:10px;margin-left:16px}
+.btn{border:0;border-radius:12px;background:var(--teal);color:#fff;font-weight:600;padding:10px 14px;box-shadow:0 8px 20px rgba(15,31,51,.12)}
+.btn.secondary{background:#fff;color:var(--navy);border:1px solid rgba(255,255,255,.7);box-shadow:none}
+.btn:disabled{opacity:.65;cursor:wait}
+main{max-width:1060px;margin:26px auto;padding:0 18px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:16px 18px;border-top:6px solid var(--teal)}
+.card b{font-size:34px;font-weight:600;color:var(--navy);display:block;line-height:1.15}
+.card span{font-size:13px;color:var(--suave)}
+h2{font-size:14px;letter-spacing:.06em;color:var(--navy);margin:28px 0 12px}
+h2 small{color:var(--teal);margin-right:6px}
+.banner{display:none;background:var(--rojo-bg);border:1px solid #fecaca;color:#991b1b;border-radius:14px;padding:12px 14px;margin-bottom:16px;font-size:14px;align-items:center;justify-content:space-between;gap:12px}
+.banner.show{display:flex}
+.banner button{background:#fff;color:#991b1b;border:1px solid #fecaca;border-radius:10px;padding:7px 10px;font-weight:600}
+.table-wrap{background:#fff;border:1px solid var(--linea);border-radius:14px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:790px}
+th{background:var(--navy);color:#fff;text-align:left;padding:10px 14px;font-weight:600;font-size:12.5px}
+td{padding:12px 14px;border-top:1px solid var(--linea);vertical-align:middle}
+tbody tr.refugio-row{cursor:pointer}
+tbody tr.refugio-row:hover{background:#f8fafc}
+.sub{font-size:12px;color:var(--suave);margin-top:3px}
+.bar{background:var(--bg);border-radius:6px;height:10px;width:150px;overflow:hidden;margin-top:5px}
+.bar i{display:block;height:100%;background:var(--teal)}
+.bar i.warn{background:var(--naranja)}
+.bar i.danger{background:var(--rojo)}
+.pill{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:12px;white-space:nowrap;display:inline-block}
+.p-ok{background:var(--verde-bg);color:var(--verde);border:1px solid var(--verde)}
+.p-warn{background:var(--naranja-bg);color:var(--naranja);border:1px solid var(--naranja)}
+.p-na{background:var(--gris-bg);color:#64748b;border:1px solid var(--gris)}
+.empty{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px;color:var(--suave);font-size:14px}
+.detail-row td{background:#fbfdff;padding:0;border-top:0}
+.detail{border-top:1px solid var(--linea);padding:16px 18px;display:grid;grid-template-columns:minmax(260px,1fr) minmax(260px,1fr);gap:18px}
+.mini-title{font-size:12px;color:var(--navy);font-weight:700;letter-spacing:.05em;margin-bottom:10px}
+.demo-grid{display:grid;grid-template-columns:1.3fr repeat(2,1fr);border:1px solid var(--linea);border-radius:12px;overflow:hidden;font-size:13px}
+.demo-grid div{padding:8px 10px;border-top:1px solid var(--linea);border-left:1px solid var(--linea);background:#fff}
+.demo-grid div:nth-child(-n+3){border-top:0;background:var(--gris-bg);font-weight:700;color:var(--navy)}
+.demo-grid div:nth-child(3n+1){border-left:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12px;border:1px solid var(--linea);border-radius:999px;padding:6px 10px;background:#fff;color:var(--suave)}
+.chip.ok{border-color:#86efac;background:var(--verde-bg);color:var(--verde)}
+.chip.no{background:var(--gris-bg);color:#64748b}
+.chart-card{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:16px 18px}
+.chart{width:100%;height:260px;display:block}
+.axis{stroke:#cbd5e1;stroke-width:1}
+.grid{stroke:#e2e8f0;stroke-width:1}
+.line{fill:none;stroke:var(--teal);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.dot{fill:var(--navy);stroke:#fff;stroke-width:2}
+.label{fill:var(--suave);font-size:11px}
+.loader{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px;color:var(--suave);font-size:14px}
+.gate-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(180deg,#eef1f5 0%,#dfe7ee 100%)}
+.gate-card{width:min(430px,100%);background:#fff;border:1px solid var(--linea);border-radius:16px;padding:24px;border-top:6px solid var(--teal);box-shadow:0 18px 45px rgba(15,31,51,.12)}
+.gate-brand{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+.gate-brand img{width:54px;height:54px;border-radius:12px}
+.gate-brand .k{font-size:12px;letter-spacing:.08em;color:var(--teal);font-weight:700}
+.gate-card h1{font-size:22px;color:var(--navy);font-weight:600;margin-top:2px}
+.field{display:flex;flex-direction:column;gap:7px;margin-top:18px}
+.field label{font-size:13px;color:var(--suave);font-weight:600}
+.field input{border:1px solid var(--linea);border-radius:12px;padding:12px 13px;color:var(--tinta);outline:none}
+.field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(30,156,148,.16)}
+.gate-error{min-height:20px;color:var(--rojo);font-size:13px;margin:10px 0 14px}
+.gate-card .btn{width:100%}
+footer{text-align:center;font-size:12px;color:var(--suave);padding:26px}
+.hidden{display:none!important}
+@media(max-width:760px){
+header{padding:16px 18px;align-items:flex-start;flex-wrap:wrap}
+header h1{font-size:17px}
+header img{width:46px;height:46px}
+header .fecha{margin-left:60px;text-align:left;width:calc(100% - 60px)}
+header .head-actions{margin-left:60px;width:calc(100% - 60px)}
+.btn{padding:9px 12px}
+main{margin:20px auto;padding:0 14px}
+.card b{font-size:30px}
+.detail{grid-template-columns:1fr}
+.bar{width:110px}
+.chart{height:220px}
+}
+</style>
+</head>
+<body>
+<section id="gate" class="gate-screen">
+  <form class="gate-card" id="gateForm" autocomplete="off">
+    <div class="gate-brand">
+      <img src="/icon-512.png" alt="Logo de la Red de Acopio y Refugio">
+      <div>
+        <div class="k">RED DE ACOPIO Y REFUGIO</div>
+        <h1>Panel institucional</h1>
+      </div>
+    </div>
+    <div class="field">
+      <label for="clave">Clave institucional</label>
+      <input id="clave" name="clave" type="password" required autocomplete="current-password" inputmode="text">
+    </div>
+    <div id="gateError" class="gate-error" aria-live="polite"></div>
+    <button id="gateButton" class="btn" type="submit">Entrar al panel</button>
+  </form>
+</section>
+
+<section id="app" class="hidden">
+  <header>
+    <img src="/icon-512.png" alt="Logo de la Red de Acopio y Refugio">
+    <div><div class="k">RED DE ACOPIO Y REFUGIO</div><h1>Panel institucional</h1></div>
+    <div class="fecha" id="fechaHeader">Actualización: —</div>
+    <div class="head-actions">
+      <button class="btn secondary" id="refreshButton" type="button">↻ Actualizar</button>
+    </div>
+  </header>
+  <main>
+    <div id="errorBanner" class="banner" role="alert">
+      <span id="errorText">No se pudo actualizar la información.</span>
+      <button id="retryButton" type="button">Reintentar</button>
+    </div>
+    <h2><small>01</small>SITUACIÓN CONSOLIDADA - REFUGIOS</h2>
+    <div id="cards" class="cards"></div>
+    <h2><small>02</small>DETALLE POR REFUGIO</h2>
+    <div id="tabla"></div>
+    <h2><small>03</small>EVOLUCIÓN</h2>
+    <div id="evolucion" class="chart-card"></div>
+  </main>
+  <footer>redacopioyrefugio.com · Panel institucional — acceso restringido</footer>
+</section>
+
+<script>
+(function(){
+  "use strict";
+
+  var API_URL = "/api/institucional/v1/situacion.json";
+  var STORAGE_KEY = "institucionalApiKey";
+  var REFRESH_MS = 5 * 60 * 1000;
+  var state = {datos:null, actualizado:null, expanded:{}, timer:null, loading:false};
+
+  var gate = document.getElementById("gate");
+  var app = document.getElementById("app");
+  var gateForm = document.getElementById("gateForm");
+  var gateButton = document.getElementById("gateButton");
+  var gateError = document.getElementById("gateError");
+  var claveInput = document.getElementById("clave");
+  var refreshButton = document.getElementById("refreshButton");
+  var retryButton = document.getElementById("retryButton");
+
+  function claveGuardada(){ return sessionStorage.getItem(STORAGE_KEY) || ""; }
+  function guardarClave(clave){ sessionStorage.setItem(STORAGE_KEY, clave); }
+  function limpiarClave(){ sessionStorage.removeItem(STORAGE_KEY); }
+  function texto(v){ return v === null || v === undefined || v === "" ? "—" : String(v); }
+  function numero(v){ return typeof v === "number" && isFinite(v) ? v : null; }
+  function entero(v){ var n = numero(v); return n === null ? "—" : n.toLocaleString("es-VE"); }
+  function pct(v){ var n = numero(v); return n === null ? "—" : n + "%"; }
+  function esc(v){
+    return texto(v).replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function fechaLegible(valor){
+    if(!valor) return "—";
+    var d = new Date(valor);
+    if(isNaN(d.getTime())) return texto(valor);
+    return d.toLocaleString("es-VE",{dateStyle:"medium",timeStyle:"short"});
+  }
+  function fechaCorta(valor){
+    if(!valor) return "—";
+    var partes = String(valor).split("-");
+    if(partes.length === 3) return partes[2] + "/" + partes[1];
+    var d = new Date(valor);
+    return isNaN(d.getTime()) ? texto(valor) : d.toLocaleDateString("es-VE",{day:"2-digit",month:"2-digit"});
+  }
+  function setLoading(on){
+    state.loading = on;
+    refreshButton.disabled = on;
+    gateButton.disabled = on;
+    refreshButton.textContent = on ? "Actualizando..." : "↻ Actualizar";
+    gateButton.textContent = on ? "Verificando..." : "Entrar al panel";
+  }
+  function showGate(mensaje){
+    app.classList.add("hidden");
+    gate.classList.remove("hidden");
+    gateError.textContent = mensaje || "";
+    claveInput.focus();
+  }
+  function showApp(){
+    gate.classList.add("hidden");
+    app.classList.remove("hidden");
+  }
+  function showError(mensaje){
+    document.getElementById("errorText").textContent = mensaje || "No se pudo actualizar la información.";
+    document.getElementById("errorBanner").classList.add("show");
+  }
+  function clearError(){
+    document.getElementById("errorBanner").classList.remove("show");
+  }
+  function estadoPill(r){
+    if(r.estado_reporte === "hoy") return '<span class="pill p-ok">Reportando · hoy</span>';
+    if(r.estado_reporte === "atrasado") return '<span class="pill p-warn">Último: '+esc(fechaCorta(r.ultima_fecha))+'</span>';
+    return '<span class="pill p-na">Sin censo aún</span>';
+  }
+  function ocupacion(r){
+    var personas = numero(r.personas);
+    var cap = numero(r.cap_inst);
+    var ocup = numero(r.ocupacion_pct);
+    var ancho = ocup === null ? 0 : Math.max(0, Math.min(100, ocup));
+    var clase = ocup === null ? "" : (ocup > 95 ? "danger" : (ocup >= 80 ? "warn" : ""));
+    return esc(entero(personas)) + " / " + esc(entero(cap)) +
+      '<div class="bar" aria-label="Ocupación"><i class="'+clase+'" style="width:'+ancho+'%"></i></div>' +
+      '<div class="sub">'+esc(pct(ocup))+'</div>';
+  }
+  function renderCards(datos){
+    var g = datos && datos.global ? datos.global : {};
+    var cupos = g.disponibles === null || g.disponibles === undefined ? "—" : entero(g.disponibles);
+    var items = [
+      [entero(g.personas), "Personas alojadas"],
+      [entero(g.familias), "Núcleos familiares"],
+      [entero(g.nna), "Niños, niñas y adolescentes"],
+      [entero(g.discapacidad), "Con discapacidad"],
+      [entero(g.embarazadas), "Embarazadas"],
+      [entero(g.refugios_hoy) + " / " + entero(g.refugios_total), "Refugios reportando"],
+      [cupos, "Cupos disponibles"]
+    ];
+    document.getElementById("cards").innerHTML = items.map(function(it){
+      return '<div class="card"><b>'+esc(it[0])+'</b><span>'+esc(it[1])+'</span></div>';
+    }).join("");
+  }
+  function demoCell(v){ return '<div>'+esc(entero(v))+'</div>'; }
+  function renderDetalle(r){
+    var d = r.demografia || {};
+    var servicios = Array.isArray(r.servicios) ? r.servicios : [];
+    var rows = [
+      ["Adultos mayores", d.am_m, d.am_f],
+      ["Adultos", d.ad_m, d.ad_f],
+      ["Adolescentes", d.adol_m, d.adol_f],
+      ["Niños", d.nino_m, d.nino_f],
+      ["Lactantes", d.lact_m, d.lact_f]
+    ];
+    var matriz = '<div class="demo-grid"><div>Rango</div><div>Masculino</div><div>Femenino</div>' +
+      rows.map(function(row){ return '<div>'+esc(row[0])+'</div>'+demoCell(row[1])+demoCell(row[2]); }).join("") +
+      '</div>';
+    var chips = servicios.length ? servicios.map(function(s){
+      var nombre = Array.isArray(s) ? s[0] : "";
+      var ok = Array.isArray(s) ? !!s[1] : false;
+      var detalle = Array.isArray(s) ? s[2] : null;
+      var label = nombre + (detalle ? ": " + detalle : "");
+      return '<span class="chip '+(ok ? "ok" : "no")+'">'+esc(label)+'</span>';
+    }).join("") : '<span class="chip no">Sin servicios reportados</span>';
+    return '<div class="detail"><div><div class="mini-title">DESGLOSE DEMOGRÁFICO</div>'+matriz+'</div><div><div class="mini-title">SERVICIOS</div><div class="chips">'+chips+'</div></div></div>';
+  }
+  function renderTabla(datos){
+    var refugios = datos && Array.isArray(datos.refugios) ? datos.refugios : [];
+    if(!refugios.length){
+      document.getElementById("tabla").innerHTML = '<div class="empty">No hay refugios para mostrar.</div>';
+      return;
+    }
+    var html = '<div class="table-wrap"><table><thead><tr><th>Refugio</th><th>Ocupación</th><th>Familias</th><th>NNA</th><th>Cupos</th><th>Estado</th></tr></thead><tbody>';
+    refugios.forEach(function(r, idx){
+      var key = r.punto_id === null || r.punto_id === undefined ? "refugio-"+idx : String(r.punto_id);
+      html += '<tr class="refugio-row" tabindex="0" data-key="'+esc(key)+'">' +
+        '<td><b>'+esc(r.nombre)+'</b><div class="sub">'+esc(r.ubicacion)+'</div></td>' +
+        '<td>'+ocupacion(r)+'</td>' +
+        '<td>'+esc(entero(r.familias))+'</td>' +
+        '<td>'+esc(entero(r.nna))+'</td>' +
+        '<td>'+esc(entero(r.disponibles))+'</td>' +
+        '<td>'+estadoPill(r)+'</td></tr>';
+      if(state.expanded[key]){
+        html += '<tr class="detail-row"><td colspan="6">'+renderDetalle(r)+'</td></tr>';
+      }
+    });
+    html += '</tbody></table></div>';
+    document.getElementById("tabla").innerHTML = html;
+    Array.prototype.forEach.call(document.querySelectorAll(".refugio-row"), function(row){
+      row.addEventListener("click", toggleRow);
+      row.addEventListener("keydown", function(e){
+        if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toggleRow.call(row); }
+      });
+    });
+  }
+  function toggleRow(){
+    var key = this.getAttribute("data-key");
+    state.expanded[key] = !state.expanded[key];
+    renderTabla(state.datos);
+  }
+  function renderEvolucion(datos){
+    var serie = datos && Array.isArray(datos.serie) ? datos.serie : [];
+    var cont = document.getElementById("evolucion");
+    if(serie.length < 2){
+      cont.innerHTML = '<div class="empty">Aún no hay historia suficiente.</div>';
+      return;
+    }
+    var w = 960, h = 260, left = 48, right = 18, top = 18, bottom = 42;
+    var vals = serie.map(function(p){ return Math.max(0, numero(p.personas) || 0); });
+    var max = Math.max.apply(null, vals.concat([1]));
+    var plotW = w - left - right, plotH = h - top - bottom;
+    function x(i){ return left + (serie.length === 1 ? plotW/2 : i * plotW/(serie.length-1)); }
+    function y(v){ return top + plotH - (v/max)*plotH; }
+    var points = serie.map(function(p,i){ return x(i).toFixed(1)+","+y(vals[i]).toFixed(1); }).join(" ");
+    var grid = [0,.25,.5,.75,1].map(function(t){
+      var yy = top + plotH - t*plotH;
+      return '<line class="grid" x1="'+left+'" y1="'+yy+'" x2="'+(w-right)+'" y2="'+yy+'"></line>';
+    }).join("");
+    var dots = serie.map(function(p,i){
+      return '<circle class="dot" cx="'+x(i).toFixed(1)+'" cy="'+y(vals[i]).toFixed(1)+'" r="4"><title>'+esc(fechaCorta(p.fecha))+': '+esc(entero(p.personas))+' personas, '+esc(entero(p.familias))+' familias</title></circle>';
+    }).join("");
+    var first = serie[0], last = serie[serie.length-1];
+    cont.innerHTML = '<svg class="chart" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Evolución de personas alojadas por fecha">' +
+      grid +
+      '<line class="axis" x1="'+left+'" y1="'+(h-bottom)+'" x2="'+(w-right)+'" y2="'+(h-bottom)+'"></line>' +
+      '<line class="axis" x1="'+left+'" y1="'+top+'" x2="'+left+'" y2="'+(h-bottom)+'"></line>' +
+      '<polyline class="line" points="'+points+'"></polyline>' + dots +
+      '<text class="label" x="'+left+'" y="'+(h-14)+'">'+esc(fechaCorta(first.fecha))+'</text>' +
+      '<text class="label" x="'+(w-right)+'" y="'+(h-14)+'" text-anchor="end">'+esc(fechaCorta(last.fecha))+'</text>' +
+      '<text class="label" x="10" y="'+(top+4)+'">'+esc(entero(max))+'</text>' +
+      '<text class="label" x="10" y="'+(h-bottom+4)+'">0</text>' +
+      '</svg>';
+  }
+  function render(envelope){
+    state.datos = envelope && envelope.datos ? envelope.datos : {};
+    state.actualizado = envelope ? envelope.actualizado : null;
+    document.getElementById("fechaHeader").innerHTML = "Actualización:<br>" + esc(fechaLegible(state.actualizado));
+    renderCards(state.datos);
+    renderTabla(state.datos);
+    renderEvolucion(state.datos);
+  }
+  function fetchDatos(clave){
+    return fetch(API_URL,{headers:{"X-API-Key":clave},cache:"no-store"}).then(function(resp){
+      if(resp.status === 401) throw new Error("UNAUTHORIZED");
+      if(!resp.ok) throw new Error("HTTP_"+resp.status);
+      return resp.json();
+    });
+  }
+  function cargar(opts){
+    opts = opts || {};
+    var clave = opts.clave || claveGuardada();
+    if(!clave){ showGate(); return Promise.resolve(); }
+    setLoading(true);
+    return fetchDatos(clave).then(function(envelope){
+      guardarClave(clave);
+      clearError();
+      showApp();
+      render(envelope);
+      iniciarAutoRefresh();
+    }).catch(function(err){
+      if(err && err.message === "UNAUTHORIZED"){
+        limpiarClave();
+        showGate("Clave inválida");
+      }else if(state.datos){
+        showError("No se pudo actualizar la información. Puedes reintentar sin perder la vista actual.");
+      }else{
+        showApp();
+        showError("No se pudo cargar la información. Revisa la conexión e intenta de nuevo.");
+        document.getElementById("cards").innerHTML = "";
+        document.getElementById("tabla").innerHTML = '<div class="loader">Sin datos cargados.</div>';
+        document.getElementById("evolucion").innerHTML = '<div class="empty">Aún no hay historia suficiente.</div>';
+      }
+    }).finally(function(){ setLoading(false); });
+  }
+  function iniciarAutoRefresh(){
+    if(state.timer) clearInterval(state.timer);
+    state.timer = setInterval(function(){ cargar(); }, REFRESH_MS);
+  }
+
+  gateForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    gateError.textContent = "";
+    cargar({clave:claveInput.value.trim()});
+  });
+  refreshButton.addEventListener("click", function(){ cargar(); });
+  retryButton.addEventListener("click", function(){ cargar(); });
+
+  if(claveGuardada()) cargar();
+  else showGate();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#003C67">
+<title>Buscar persona · Red de Acopio y Refugio</title>
+<meta name="description" content="Busca a una persona desaparecida o ingresada en hospitales tras el terremoto. Consultamos en vivo los registros comunitarios de varias plataformas ciudadanas.">
+<link rel="icon" href="/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+<style>
+:root{--navy:#003C67;--petroleo:#005B67;--teal:#1E9C94;--rojo:#b3261e;--linea:#dfe6ee;--txt:#0f1f33;--gris:#5b6b80}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Poppins",-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#eef2f7;color:var(--txt)}
+.top{position:relative;overflow:hidden;color:#fff;background:linear-gradient(118deg,#022B4D,#003C67 34%,#005B67 66%,#15857E);padding:calc(14px + env(safe-area-inset-top)) 18px 24px}
+.top::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px 240px at 90% -12%,rgba(255,255,255,.13),transparent 60%)}
+.top-in{max-width:640px;margin:0 auto;position:relative}
+.top-marca{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.top-marca img{width:30px;height:30px;background:#fff;border-radius:8px;padding:3px;box-shadow:0 2px 8px rgba(2,20,38,.25)}
+.top-marca b{font-size:13px;font-weight:600;opacity:.94}
+.top-marca .volver{margin-left:auto;font-size:12.5px;color:rgba(255,255,255,.88);font-weight:600;white-space:nowrap}
+.top h1{margin:16px 0 0;font-size:clamp(23px,5vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.18;display:flex;align-items:center;gap:10px}
+.top h1 svg{flex:0 0 auto}
+.top p{margin:9px 0 0;font-size:14px;color:rgba(255,255,255,.9);line-height:1.55}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+.buscador{display:flex;gap:8px;margin:14px 0 8px}
+.buscador input{flex:1;min-width:0;padding:13px 14px;border:2px solid var(--petroleo);border-radius:12px;font-size:16px;font-family:inherit;outline:none}
+.buscador input:focus{border-color:var(--teal)}
+.buscador button{background:var(--teal);color:#fff;border:0;border-radius:12px;padding:0 20px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit}
+.buscador button:hover{background:var(--petroleo)}
+.aviso{font-size:12.5px;color:var(--gris);line-height:1.5;background:#fff;border:1px solid var(--linea);border-radius:12px;padding:12px;margin-bottom:12px}
+.estado-busqueda{font-size:13.5px;color:var(--gris);margin:10px 2px}
+.sec{font-size:15px;font-weight:700;color:var(--navy);margin:16px 2px 8px}
+.tarjeta{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:13px 15px;margin-bottom:10px;display:flex;gap:12px}
+.tarjeta img{width:54px;height:54px;object-fit:cover;border-radius:10px;flex-shrink:0}
+.tarjeta .cuerpo{flex:1;min-width:0;overflow-wrap:break-word}
+.tarjeta h3{margin:0;font-size:15px;color:var(--navy)}
+.tarjeta h3 small{font-weight:500;color:var(--gris);font-size:12.5px}
+.meta{font-size:12.5px;color:var(--gris);margin-top:3px;line-height:1.5}
+.badge{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:99px;color:#fff;margin-right:5px;text-transform:uppercase;letter-spacing:.03em}
+.b-desaparecido{background:var(--rojo)}.b-ingresado{background:var(--navy)}
+.b-rescatado,.b-localizado{background:var(--teal)}.b-alta{background:#2E8B57}
+.b-fallecido{background:#4a4a4a}.b-desconocido{background:#8a99ad}
+.chip{display:inline-block;font-size:10.5px;background:#e8f0f2;color:var(--petroleo);border-radius:99px;padding:2px 8px;margin:5px 4px 0 0;font-weight:600}
+.cruce{border-left:4px solid #E9A23B}
+.cruce .score{font-weight:700;color:#B07500;font-size:12.5px}
+.pie{font-size:11.5px;color:var(--gris);margin:20px 0;text-align:center;line-height:1.6}
+.vacio{text-align:center;color:var(--gris);font-size:14px;padding:26px 10px;line-height:1.6}
+.vacio a{color:var(--petroleo);font-weight:700}
+.cargando{text-align:center;padding:24px;color:var(--petroleo);font-weight:600;font-size:14px}
+</style></head><body>
+<div class="top"><div class="top-in">
+  <a class="top-marca" href="/"><img src="/logo.svg?v=ofc" alt=""><b>Red de Acopio y Refugio</b><span class="volver">← Volver al inicio</span></a>
+  <h1><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>Buscar persona</h1>
+  <p>Consulta en vivo los registros comunitarios de personas <b>ingresadas en hospitales</b>, <b>rescatadas</b> y <b>reportadas como desaparecidas</b> tras el terremoto.</p>
+</div></div>
+<div class="wrap">
+  <div class="buscador">
+    <input id="q" type="search" placeholder="Nombre y apellido o cédula…" autofocus>
+    <button id="btn" onclick="buscar()">Buscar</button>
+  </div>
+  <p class="aviso">⚠️ Información <b>comunitaria y no oficial</b>, cargada por voluntarios en plataformas ciudadanas
+  (Hospitales en Venezuela, Red Ayuda Venezuela, Buscador Multiorigen y los portales que estos agregan).
+  Úsala como <b>referencia para orientar tu búsqueda</b> y confirma siempre llamando al centro de salud.
+  Cédulas y teléfonos se muestran enmascarados. Emergencias: <b>911</b>.</p>
+  <div id="salida"></div>
+  <p class="pie">¿No aparece? <a href="/pedir.html" style="color:var(--petroleo);font-weight:700">Publica un pedido de ayuda</a> y la red de tu zona recibirá el aviso.</p>
+</div>
+<script>
+var $=function(s){return document.querySelector(s)};
+$('#q').addEventListener('keydown',function(e){if(e.key==='Enter')buscar();});
+function badge(e){return '<span class="badge b-'+e+'">'+e+'</span>';}
+function esc(s){var d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function buscar(){
+  var q=$('#q').value.trim();
+  if(q.length<3)return;
+  $('#btn').disabled=true;
+  $('#salida').innerHTML='<div class="cargando">Consultando los registros en vivo…</div>';
+  fetch('/api/buscar_persona?q='+encodeURIComponent(q))
+    .then(function(r){return r.json().catch(function(){return {ok:false,error:'respuesta inválida'};});})
+    .then(function(r){
+      $('#btn').disabled=false;
+      if(!r.ok){$('#salida').innerHTML='<div class="vacio">'+esc(r.error||'No se pudo buscar. Intenta de nuevo.')+'</div>';return;}
+      var html='<p class="estado-busqueda">'+r.resultados.length+' resultados · fuentes consultadas en '+(r.ms/1000).toFixed(1)+' s</p>';
+      if(r.cruces&&r.cruces.length){
+        html+='<div class="sec">⚡ Posibles coincidencias desaparecido ↔ paciente</div>';
+        r.cruces.forEach(function(c){
+          html+='<div class="tarjeta cruce"><div class="cuerpo"><h3>'+esc(c.nombre_local)+' <span class="score">'+c.score+'%</span></h3>'
+            +'<div class="meta">Coincide con <b>'+esc(c.nombre_externo)+'</b>'
+            +(c.cedula?' · C.I. '+esc(c.cedula):'')+(c.edad?' · '+esc(c.edad):'')+'<br>'
+            +badge(c.estado)+esc(c.estado_raw)+' — '+esc(c.centro)+'</div>'
+            +'<span class="chip">'+esc(c.fuente)+'</span><span class="chip">'+esc(c.fecha)+'</span></div></div>';
+        });
+      }
+      if(!r.resultados.length){
+        html+='<div class="vacio">Sin resultados con ese nombre en las fuentes consultadas.<br>Prueba con menos palabras (solo nombre y un apellido) o revisa la ortografía.</div>';
+      }else{
+        html+='<div class="sec">Resultados</div>';
+        r.resultados.forEach(function(p){
+          html+='<div class="tarjeta">'+(p.foto?'<img src="'+esc(p.foto)+'" loading="lazy" alt="">':'')
+            +'<div class="cuerpo"><h3>'+esc(p.nombre)+(p.cedula?' <small>C.I. '+esc(p.cedula)+'</small>':'')+'</h3>'
+            +'<div class="meta">'+badge(p.estado)
+            +esc(p.estado_raw&&p.estado_raw.toLowerCase()!==p.estado?p.estado_raw:'')
+            +(p.lugar?' · 📍 '+esc(p.lugar):'')+(p.zona?' · '+esc(p.zona):'')
+            +(p.detalle?'<br>'+esc(p.detalle):'')+(p.fecha?'<br>🕒 '+esc(p.fecha):'')+'</div>'
+            +(p.fuentes||[p.fuente]).map(function(f){return '<span class="chip">'+esc(f)+'</span>';}).join('')
+            +(p.origen?'<span class="chip">vía '+esc(p.origen)+'</span>':'')
+            +'</div></div>';
+        });
+      }
+      var salud=Object.keys(r.fuentes||{}).map(function(n){var s=r.fuentes[n];return n+': '+(s.ok?'✓ '+s.n:'✗ sin respuesta');}).join(' · ');
+      html+='<div class="pie">Fuentes — '+salud+'</div>';
+      $('#salida').innerHTML=html;
+    })
+    .catch(function(){$('#btn').disabled=false;$('#salida').innerHTML='<div class="vacio">Error de conexión. Intenta de nuevo.</div>';});
+}
+// Enlace profundo: /buscar.html?q=Nombre+Apellido busca de una vez.
+var qs=new URLSearchParams(location.search).get('q');
+if(qs&&qs.trim().length>=3){$('#q').value=qs.trim();buscar();}
+</script>
+</body></html>

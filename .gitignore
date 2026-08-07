@@ -1,0 +1,21 @@
+# Secretos y credenciales
+.env
+*.session
+visita_salt
+
+# Datos de personas reales — NUNCA subir
+*.db
+*.db-wal
+*.db-shm
+*.db.bak*
+datos.json
+
+# Entorno y caches
+venv/
+__pycache__/
+*.pyc
+whisper_models/
+*.log
+*.bak*
+web/img/
+pedidos_img/

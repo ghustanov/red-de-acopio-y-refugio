@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#003C67">
+<title>Pedir ayuda · Red de Acopio y Refugio</title>
+<link rel="icon" href="/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap">
+<style>
+:root{--navy:#003C67;--rojo:#b3261e;--linea:#dfe6ee;--txt:#0f1f33}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Poppins",-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#eef2f7;color:var(--txt)}
+.top{position:relative;overflow:hidden;color:#fff;background:linear-gradient(118deg,#022B4D,#003C67 34%,#005B67 66%,#15857E);padding:calc(14px + env(safe-area-inset-top)) 18px 24px}
+.top::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px 240px at 90% -12%,rgba(255,255,255,.13),transparent 60%)}
+.top-in{max-width:560px;margin:0 auto;position:relative}
+.top-marca{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.top-marca img{width:30px;height:30px;background:#fff;border-radius:8px;padding:3px;box-shadow:0 2px 8px rgba(2,20,38,.25)}
+.top-marca b{font-size:13px;font-weight:600;opacity:.94}
+.top-marca .volver{margin-left:auto;font-size:12.5px;color:rgba(255,255,255,.88);font-weight:600;white-space:nowrap}
+.top h1{margin:16px 0 0;font-size:clamp(23px,5vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.18;display:flex;align-items:center;gap:10px}
+.top h1 svg{flex:0 0 auto}
+.top p{margin:9px 0 0;font-size:14px;color:rgba(255,255,255,.9);line-height:1.55}
+.wrap{max-width:560px;margin:0 auto;padding:16px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(11,42,74,.08)}
+.pie-sub{text-align:center;font-size:12px;color:#8a99ad;margin:22px 0 26px;line-height:1.6}
+.pie-sub a{color:#005B67;font-weight:600;text-decoration:none}
+.card{background:#fff;border:1px solid var(--linea);border-radius:16px;padding:18px;margin:14px 0}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+label .op{color:#8a99ad;font-weight:500}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px;font-family:inherit;background:#fff}
+textarea{min-height:96px;resize:vertical}
+.hp{position:absolute;left:-9999px;top:-9999px}
+.btn{display:block;width:100%;margin-top:18px;padding:14px;border:0;border-radius:12px;background:var(--rojo);color:#fff;font-weight:800;font-size:16px;cursor:pointer}
+.btn:disabled{opacity:.6}
+.msg{padding:14px;border-radius:12px;margin:10px 0;font-size:14.5px;line-height:1.45;display:none}
+.ok{background:#e7f6f4;border:1px solid #1E9C94;color:#0b5f59}
+.err{background:#fdeaea;border:1px solid #e57373;color:#9b2226}
+.alt{text-align:center;font-size:13.5px;color:#5b6b80;margin-top:16px;line-height:1.5}
+.alt a{color:#005B67;font-weight:700;text-decoration:none}
+.nota{font-size:12.5px;color:#8a99ad;margin-top:10px;line-height:1.45}
+.priv{background:#fff7f7;border:1px solid #f0d9d9;border-radius:12px;padding:12px;margin-top:14px;font-size:13px;color:#7a2e2a;line-height:1.45}
+.urg{background:#fff3cd;border:1px solid #ffe08a;border-radius:12px;padding:12px;margin:0 0 6px;font-size:13px;color:#7a5c00;line-height:1.45}
+.flyer{background:#f0f6fb;border:1.5px dashed #9db8cf;border-radius:12px;padding:14px;margin:2px 0 4px}
+.flyer b{font-size:14.5px}
+.flyer p{margin:6px 0 10px;font-size:13px;color:#5b6b80;line-height:1.45}
+.flyer input[type=file]{display:none}
+.btn-flyer{display:block;width:100%;padding:12px;border:0;border-radius:10px;background:var(--navy);color:#fff;font-weight:700;font-size:14.5px;cursor:pointer;font-family:inherit}
+#fprev{display:none;margin-top:10px}
+#fprev img{max-width:100%;max-height:280px;border-radius:10px;display:block;margin:0 auto}
+.fquitar{display:block;margin:8px auto 0;background:none;border:0;color:#9b2226;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.fstat{display:none;margin-top:10px;font-size:13.5px;border-radius:10px;padding:10px 12px;line-height:1.45}
+.fstat.lee{background:#fff8e6;border:1px solid #f2dfa0;color:#7a5c00}
+.fstat.ok2{background:#e7f6f4;border:1px solid #1E9C94;color:#0b5f59}
+.fstat.err2{background:#fdeaea;border:1px solid #e57373;color:#9b2226}
+#refs{display:none;margin-top:10px}
+.ref-card{background:#eef6ff;border:1px solid #b6d4f0;border-radius:10px;padding:10px 12px;margin-top:8px;font-size:13px;line-height:1.5;color:#1c3a5a}
+.ref-card b{color:#003C67}
+.ref-est{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:99px;color:#fff;background:#1E9C94;margin-right:5px;text-transform:uppercase}
+.ref-est.gris{background:#4a4a4a}
+.ref-nota{font-size:12px;color:#5b6b80;margin-top:8px;line-height:1.45}
+.ref-nota a{color:#005B67;font-weight:700}
+</style></head><body>
+<div class="top"><div class="top-in">
+  <a class="top-marca" href="/"><img src="/logo.svg?v=ofc" alt=""><b>Red de Acopio y Refugio</b><span class="volver">← Volver al inicio</span></a>
+  <h1><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.6"/><path d="M5.9 5.9l3.4 3.4M18.1 5.9l-3.4 3.4M18.1 18.1l-3.4-3.4M5.9 18.1l3.4-3.4"/></svg>Pedir ayuda</h1>
+  <p>¿Necesitas algo — comida, agua, medicinas, un lugar donde dormir? ¿Buscas a una persona desaparecida y tienes su flyer? Cuéntanos o sube la imagen. Tu pedido se publica al instante y le avisamos a los centros y voluntarios de tu zona.</p>
+</div></div>
+<div class="wrap">
+  <div class="urg">⚠️ Si es una <b>emergencia de vida o muerte</b> (persona atrapada, herida grave), llama primero al <b>911</b> o a los cuerpos de rescate. Este formulario no es un servicio de emergencia inmediata.</div>
+  <div class="card">
+    <div id="ok" class="msg ok"></div>
+    <div id="err" class="msg err"></div>
+    <form id="f" autocomplete="on">
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="flyer">
+        <b>📸 ¿Tienes un flyer o una foto con la información?</b>
+        <p>Por ejemplo, el volante de una <b>persona desaparecida</b>. Súbelo y lo leemos por ti: el formulario se llena solo y la imagen se publica junto con tu pedido. No necesitas registrarte.</p>
+        <input type="file" id="flyer" accept="image/*">
+        <button type="button" class="btn-flyer" id="fbtn">📷 Subir flyer o foto</button>
+        <div id="fprev"><img id="fimg" alt="Imagen del pedido"><button type="button" class="fquitar" id="fquitar">✖ Quitar la imagen</button></div>
+        <div id="fstat" class="fstat"></div>
+      </div>
+      <label>Tu nombre <span class="op">(opcional)</span></label>
+      <input id="nombre" maxlength="80" placeholder="Como quieres que te llamen">
+      <label>¿Qué necesitas?</label>
+      <select id="categoria" required>
+        <option value="">Elige una categoría…</option>
+        <option value="comida">🍲 Comida</option>
+        <option value="agua">💧 Agua</option>
+        <option value="salud">🩹 Salud / medicinas</option>
+        <option value="refugio">🛏️ Refugio / dónde dormir</option>
+        <option value="rescate">🆘 Rescate / persona atrapada</option>
+        <option value="transporte">🚐 Transporte</option>
+        <option value="desaparecido">🔍 Persona desaparecida</option>
+        <option value="otro">📦 Otra necesidad</option>
+      </select>
+      <div id="bloque-persona" style="display:none">
+        <label>¿Cómo se llama la persona que buscas?</label>
+        <input id="persona" maxlength="80" placeholder="Nombre y apellido de la persona desaparecida">
+        <div id="refs"></div>
+      </div>
+      <label>Cuéntanos con detalle</label>
+      <textarea id="descripcion" maxlength="600" placeholder="Ej.: Somos 4 personas, 2 niños, necesitamos agua y comida. O: mi mamá necesita insulina." required></textarea>
+      <label>¿En qué zona estás?</label>
+      <input id="zona" maxlength="120" placeholder="Ej.: Caracas, Petare, sector La Línea" required>
+      <label>WhatsApp para que te contacten</label>
+      <input id="contacto" maxlength="60" placeholder="Ej.: 0412 1234567" required>
+      <div class="priv">🔒 Tu WhatsApp <b>NO se publica</b> en la web. Solo lo ven, en privado, los centros y voluntarios de la red que puedan ayudarte. En la página aparece únicamente <b>qué necesitas y tu zona</b>, sin tu nombre ni tu número.</div>
+      <p class="nota">Al enviar aceptas el <a href="/aviso-legal.html" target="_blank" rel="noopener">Aviso legal</a>: la Red solo conecta personas voluntariamente; no verifica ni supervisa la ayuda. Verifica identidad y coordina en lugares seguros.</p>
+      <button class="btn" id="enviar" type="submit">Enviar mi pedido</button>
+      <p class="nota">Iniciativa ciudadana e independiente. Tu pedido se publica al instante; nuestro equipo modera todos los pedidos y remueve los abusos.</p>
+    </form>
+  </div>
+  <p class="alt">¿Prefieres hacerlo por WhatsApp? <a href="https://wa.me/message/6TEVCZCHJ2TPN1" target="_blank" rel="noopener">💬 Escríbenos →</a> · ¿O por Telegram? <a href="https://t.me/angelesapoyove_bot" target="_blank" rel="noopener">Abre nuestro bot →</a></p>
+  <p class="pie-sub">Red de Acopio y Refugio · Iniciativa ciudadana e independiente · <a href="/aviso-legal.html">Aviso legal</a></p>
+</div>
+<script>
+var f=document.getElementById('f'),ok=document.getElementById('ok'),err=document.getElementById('err'),btn=document.getElementById('enviar');
+function val(id){return (document.getElementById(id).value||'').trim();}
+
+// --- Persona desaparecida: campo extra + búsqueda EN VIVO en los registros
+// comunitarios (/api/buscar_persona: hospitales, rescatados, desaparecidos).
+// Si la persona ya aparece como rescatada/ingresada, se le muestra a quien
+// reporta ANTES de enviar — referencia, nunca confirmación.
+var bloqueP=document.getElementById('bloque-persona'),inpP=document.getElementById('persona'),
+    refs=document.getElementById('refs'),tRef=null,ultimaQ='';
+var EST_REF={ingresado:'🏥 Ingresado/a',rescatado:'✅ Rescatado/a',localizado:'✅ Localizado/a',
+             alta:'🏥 Dado/a de alta',fallecido:'🕊️ Reportado/a como fallecido/a'};
+function normTxt(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function escT(s){var d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+document.getElementById('categoria').addEventListener('change',function(){
+  bloqueP.style.display=this.value==='desaparecido'?'block':'none';
+});
+function buscarRefs(){
+  var q=(inpP.value||'').trim();
+  var toks=normTxt(q).split(/\s+/).filter(function(t){return t.length>=2;});
+  if(toks.length<2||q===ultimaQ)return;
+  ultimaQ=q;
+  fetch('/api/buscar_persona?q='+encodeURIComponent(q))
+    .then(function(r){return r.json().catch(function(){return null;});})
+    .then(function(r){
+      if(!r||!r.ok||(inpP.value||'').trim()!==q)return;
+      var hits=(r.resultados||[]).filter(function(p){
+        if(!EST_REF[p.estado])return false;
+        var n=normTxt(p.nombre);
+        return toks.every(function(t){return n.indexOf(t)>=0;});
+      }).slice(0,3);
+      if(!hits.length){refs.style.display='none';refs.innerHTML='';return;}
+      var h='<div class="ref-card"><b>👀 Buenas noticias posibles:</b> encontramos registros con ese nombre:</div>';
+      hits.forEach(function(p){
+        h+='<div class="ref-card"><span class="ref-est'+(p.estado==='fallecido'?' gris':'')+'">'
+          +EST_REF[p.estado]+'</span> <b>'+escT(p.nombre)+'</b>'
+          +(p.lugar?' — 📍 '+escT(p.lugar):'')+(p.cedula?' · C.I. '+escT(p.cedula):'')
+          +'<br><small>Fuente: '+escT((p.fuentes||[p.fuente]).join(' + '))+(p.fecha?' · '+escT(p.fecha):'')+'</small></div>';
+      });
+      h+='<div class="ref-nota">⚠️ Información comunitaria, no oficial: <b>confirma llamando al centro</b>. '
+        +'<a href="/buscar.html?q='+encodeURIComponent(q)+'" target="_blank" rel="noopener">Ver todos los resultados →</a>'
+        +'<br>Si no es tu familiar, envía tu pedido normalmente.</div>';
+      refs.innerHTML=h;refs.style.display='block';
+    })
+    .catch(function(){});
+}
+inpP.addEventListener('input',function(){clearTimeout(tRef);tRef=setTimeout(buscarRefs,800);});
+inpP.addEventListener('blur',buscarRefs);
+
+// --- Flyer / foto del pedido: se reduce en el navegador (canvas → JPEG), la IA
+// la lee (/api/leer_flyer) y prellena el formulario; la persona revisa y envía.
+var IMG_B64=null;
+var fin=document.getElementById('flyer'),fbtn=document.getElementById('fbtn'),
+    fprev=document.getElementById('fprev'),fimg=document.getElementById('fimg'),
+    fquitar=document.getElementById('fquitar'),fstat=document.getElementById('fstat');
+function fmsg(cls,html){fstat.className='fstat '+cls;fstat.innerHTML=html;fstat.style.display='block';}
+function reducir(file,cb){
+  var fr=new FileReader();
+  fr.onload=function(){
+    var im=new Image();
+    im.onload=function(){
+      var m=1400,k=Math.min(1,m/Math.max(im.width,im.height));
+      var cv=document.createElement('canvas');
+      cv.width=Math.max(1,Math.round(im.width*k));cv.height=Math.max(1,Math.round(im.height*k));
+      cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+      var q=0.82,du=cv.toDataURL('image/jpeg',q);
+      // Tope ~700k de base64: el POST completo debe quedar bajo el límite de 1 MB
+      // que nginx pone al body (client_max_body_size por defecto).
+      while(du.length>700000&&q>0.4){q-=0.15;du=cv.toDataURL('image/jpeg',q);}
+      cb(du.length>950000?null:du);
+    };
+    im.onerror=function(){cb(null);};
+    im.src=fr.result;
+  };
+  fr.onerror=function(){cb(null);};
+  fr.readAsDataURL(file);
+}
+function pon(id,v){var el=document.getElementById(id);if(v&&!el.value.trim())el.value=v;}
+fbtn.addEventListener('click',function(){fin.click();});
+fquitar.addEventListener('click',function(){
+  IMG_B64=null;fin.value='';fprev.style.display='none';fstat.style.display='none';
+});
+fin.addEventListener('change',function(){
+  var file=fin.files&&fin.files[0];if(!file)return;
+  fmsg('lee','⏳ Preparando la imagen…');
+  reducir(file,function(du){
+    if(!du){fmsg('err2','No se pudo procesar esa imagen. Prueba con otra (JPG o PNG).');fin.value='';return;}
+    IMG_B64=du.split(',')[1];fimg.src=du;fprev.style.display='block';
+    fmsg('lee','🤖 Leyendo la imagen… (puede tardar unos segundos)');
+    fetch('/api/leer_flyer',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({website:f.website.value||'',imagen:IMG_B64})})
+      .then(function(r){return r.json().catch(function(){return {ok:false};});})
+      .then(function(d){
+        if(d&&d.ok&&d.legible){
+          if(d.categoria&&!val('categoria'))document.getElementById('categoria').value=d.categoria;
+          // En un flyer de desaparecido, el nombre leído es el de la PERSONA BUSCADA:
+          // va al campo persona (y dispara la búsqueda en registros), no al del reportante.
+          if(val('categoria')==='desaparecido'){
+            bloqueP.style.display='block';
+            pon('persona',d.nombre);buscarRefs();
+          }else{
+            pon('nombre',d.nombre);
+          }
+          pon('descripcion',d.descripcion);pon('zona',d.zona);pon('contacto',d.contacto);
+          fmsg('ok2','✅ Leímos la imagen y llenamos el formulario por ti. <b>Revisa que los datos estén bien</b>, corrige lo que falte y envía.');
+        }else{
+          fmsg('err2','No pudimos leer la imagen automáticamente. Tranquilo: <b>la imagen igual se enviará con tu pedido</b>; completa los campos tú mismo.');
+        }
+      })
+      .catch(function(){
+        fmsg('err2','No pudimos leer la imagen automáticamente. Tranquilo: <b>la imagen igual se enviará con tu pedido</b>; completa los campos tú mismo.');
+      });
+  });
+});
+
+f.addEventListener('submit',function(ev){
+  ev.preventDefault();
+  err.style.display='none';
+  var body={
+    website:f.website.value||'',
+    nombre:val('nombre'),categoria:val('categoria'),descripcion:val('descripcion'),
+    zona:val('zona'),contacto:val('contacto'),imagen:IMG_B64||'',
+    persona:val('categoria')==='desaparecido'?val('persona'):''
+  };
+  if(!body.categoria||!body.descripcion||!body.zona||!body.contacto){
+    err.textContent='Por favor completa qué necesitas, la descripción, tu zona y tu WhatsApp.';err.style.display='block';return;
+  }
+  btn.disabled=true;btn.textContent='Enviando… (puede tardar en conexiones lentas)';
+  fetch('/api/solicitar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+    .then(function(d){
+      if(d&&d.ok){
+        f.style.display='none';err.style.display='none';
+        // `publicado` viene del backend: true = auto-publicado; false = en revisión
+        // (persona desaparecida — datos de un tercero — o kill-switch apagado).
+        ok.innerHTML=(d.publicado
+          ?'✅ <b>¡Publicado!</b> Tu pedido ya está en la web y le estamos avisando a los centros y voluntarios de tu zona. Te contactarán por WhatsApp.'
+          :'✅ <b>¡Recibido!</b> Nuestro equipo revisa tu pedido y avisa a los centros y voluntarios de tu zona. Te contactarán por WhatsApp.')
+          +' <br><br><a href="/" style="color:#0b5f59;font-weight:700">Volver al inicio</a>';
+        ok.style.display='block';window.scrollTo(0,0);
+      }else{
+        throw new Error((d&&d.error)||'No se pudo enviar');
+      }
+    })
+    .catch(function(e){
+      err.textContent='No se pudo enviar ('+(e.message||'error')+'). Tranquilo: tu pedido sigue aquí en el formulario — revisa tu conexión y toca «Reintentar envío».';
+      err.style.display='block';btn.disabled=false;btn.textContent='Reintentar envío';
+    });
+});
+</script>
+</body></html>
