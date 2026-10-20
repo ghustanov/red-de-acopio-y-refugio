@@ -27,7 +27,7 @@ def check(cond, msg):
 print("── Identidad (Opción B) ──")
 for wa_phone, rol_esperado in [("584240000011", "centro"),      # representante id=2
                                ("584240000044", "aliado"),      # aliado id=1
-                               ("584129320053", "voluntario")]:  # voluntario id=2
+                               ("584120000022", "voluntario")]:  # voluntario id=2
     r = bot_wa.resolver_identidad(wa_phone)
     check(r["tipo"] == "match", f"{wa_phone} → reconocido como registro existente ({r['tipo']})")
 

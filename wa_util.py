@@ -40,7 +40,7 @@ def canonico(numero):
 def candidatos(texto):
     """Conjunto de números canónicos hallados en un campo (puede traer VARIOS).
 
-    '04241293768 - 041228' -> {'4241293768'}
+    '04240000099 - 041228' -> {'4240000099'}
     '+58 422-1915191'       -> {'4221915191'}
     '+56900000000' (Chile)  -> set()
     """
